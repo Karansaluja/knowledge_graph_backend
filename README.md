@@ -102,6 +102,7 @@ Harivansh Rai Bachchan
 --------------
 **GET - /get_relation_list** <br>
 About - This api provides a list of all the available relations
+
 **Request**
 ```
 curl --location --request GET 'localhost:8081/get_relation_list'
@@ -121,6 +122,7 @@ curl --location --request GET 'localhost:8081/get_relation_list'
 --------------
 **GET - /get_template** <br>
 About - This api allows client to fetch templates associated with a given relation.
+
 **Request**
 ```
 curl --location --request GET 'localhost:8081/get_template?relation=mother'
