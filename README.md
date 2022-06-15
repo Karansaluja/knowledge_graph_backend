@@ -29,7 +29,7 @@ Raw task_id is received as response.
 e8435c9d-4262-4895-bed4-9a46a54006f1
 ```
 ---------------
-**GET - /get_ingestion_status**
+**GET - /get_ingestion_status** <br>
 About - This api is used to track the status of a task. If the task is complete, it'll
 respond with the status `DONE` else `INPROGRESS`.
 
@@ -43,7 +43,7 @@ curl --location --request GET
 INPROGRESS
 ```
 ------------------
-**GET - /get_sample_relations**
+**GET - /get_sample_relations** <br>
 About - This api can be used to fetch a sample of relations extracted from a given 
 ingestion request.
 
@@ -69,7 +69,7 @@ curl --location --request GET
 ]
 ```
 -----------
-**POST - /add_template**
+**POST - /add_template** <br>
 About - This api can be used to add a new template for a relation.
 
 **Request**
@@ -86,7 +86,7 @@ About - This api can be used to add a new template for a relation.
 {"message": "template ingested successfully"}
 ```
 ------------
-**POST - /search_template**
+**POST - /search_template** <br>
 About - Using this api, client can query knowledge graph by asking questions.
 
 **Request**
@@ -100,14 +100,14 @@ About - Using this api, client can query knowledge graph by asking questions.
 Harivansh Rai Bachchan
 ```
 --------------
-**GET - /get_relation_list**
+**GET - /get_relation_list** <br>
 About - This api provides a list of all the available relations
 **Request**
 ```
 curl --location --request GET 'localhost:8081/get_relation_list'
 ```
 **Response**
-```json
+```
 [
   "mother",
   "father",
@@ -119,7 +119,7 @@ curl --location --request GET 'localhost:8081/get_relation_list'
 ]
 ```
 --------------
-**GET - /get_template**
+**GET - /get_template** <br>
 About - This api allows client to fetch templates associated with a given relation.
 **Request**
 ```
