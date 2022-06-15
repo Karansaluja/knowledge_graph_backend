@@ -132,4 +132,14 @@ curl --location --request GET 'localhost:8081/get_template?relation=mother'
     "who is the mother of (.*)( |)\\?"
 ]
 ```
+--------------
+## Running the server
+- In the root path of the repository run the following command
+`docker-compose up --build`
+- Check if all containers are in running state. You can start a container by clicking 
+on start button through docker ui.
+![docker containers](resources/docker_containers.png)
+- If the containers are not starting, it is most likely because of OOM issue. Make sure
+you provide atleast 8Gb of RAM to docker.
+![docker config](resources/docker_config.png)
 
