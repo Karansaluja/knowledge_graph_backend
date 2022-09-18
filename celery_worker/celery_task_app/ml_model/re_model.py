@@ -37,7 +37,7 @@ class RelationExtractionModel:
         # Plan
         # Create KB out of it
         # Iterate over KB to ingest relations
-        if inputType == "s3":
+        if inputType == "s3File":
             text, ok = self.get_text_from_web(text)
             if not ok:
                 return {"error": "unable to pull data from s3"}
