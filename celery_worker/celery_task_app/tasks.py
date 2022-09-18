@@ -41,5 +41,5 @@ def ingest_relations(self, *args):
     Essentially the run method of IngestionTask
     """
     json_data = args[0]
-    output = self.model.process_data(json_data['data'])
+    output = self.model.process_data(json_data['data'],json_data['inputType'])
     return output

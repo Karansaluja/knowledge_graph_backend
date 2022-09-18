@@ -72,11 +72,16 @@ def get_ingestion_status():
         Response(json.dumps({'message': 'task id not present in the input'}), status=400, mimetype='application/json')
     task = celery_app.AsyncResult(task_id, app=celery_app)
     if task.ready():
-        ingestion_id = task.result['ingestion_id']
-        mongo_app.update_doc(task_id, ingestion_id)
-        response = {
-            "status": "DONE"
-        }
+        if 'error' in task.result:
+            response = {
+                "status": "FAILED"
+            }
+        else:
+            ingestion_id = task.result['ingestion_id']
+            mongo_app.update_doc(task_id, ingestion_id)
+            response = {
+                "status": "DONE"
+            }
     else:
         response = {
             "status": "IN_PROGRESS"

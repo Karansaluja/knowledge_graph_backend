@@ -5,6 +5,7 @@ from ..knowledge_base import knowledge_base
 from ..kg_ingestor import kg_ingestor
 from ..mongo_logger import mongo_logger
 import math
+import requests
 import torch
 
 
@@ -32,10 +33,14 @@ class RelationExtractionModel:
                                                      "ingestion_logs")
         logging.info("connected to mongo logger successfully")
 
-    def process_data(self, text: str, verbose=True):
+    def process_data(self, text: str, inputType: str, verbose=True):
         # Plan
         # Create KB out of it
         # Iterate over KB to ingest relations
+        if inputType == "s3":
+            text, ok = self.get_text_from_web(text)
+            if not ok:
+                return {"error": "unable to pull data from s3"}
         kb = self.from_text_to_kb(text)
         relations = kb.relations
         count = 0
@@ -47,6 +52,17 @@ class RelationExtractionModel:
             print(f"{count} relationships have been ingested")
 
         return {"ingestion_id": ingestion_id}
+
+    def get_text_from_web(self, uri: str):
+        try:
+            uri = uri.replace("https","http")
+            response = requests.get(uri)
+            if response.status_code != 200:
+                return "", False
+            data = response.text
+            return data, True
+        except:
+            return "", False
 
     def from_text_to_kb(self, text, span_length=128, verbose=False):
         # tokenize whole text
