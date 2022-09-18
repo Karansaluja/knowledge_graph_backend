@@ -135,7 +135,7 @@ curl --location --request GET 'localhost:8081/get_template?relation=mother'
 ]
 ```
 --------------
-## Running the server
+## Running the server on local machine
 - In the root path of the repository run the following command
 `docker-compose up --build`
 - Check if all containers are in running state. You can start a container by clicking 
@@ -145,3 +145,39 @@ on start button through docker ui.
 you provide atleast 8Gb of RAM to docker.
 ![docker config](resources/docker_config.png)
 
+## Running the server on EC2
+Execute following commands to run server on ec2 machine
+- Dependencies
+  ```bash
+    #Locale Setup
+    export LANG=en_US.UTF-8
+    export LANGUAGE=en_US.UTF-8
+    export LC_COLLATE=C
+    export LC_CTYPE=en_US.UTF-8
+    source /etc/bashrc
+  
+    #Docker Installation
+    sudo yum update -y
+    sudo yum install docker -y
+    sudo usermod -aG docker $USER
+    sudo reboot
+  
+    #Docker Compose Installation
+    sudo systemctl start docker
+    DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
+    mkdir -p $DOCKER_CONFIG/cli-plugins
+    curl -SL https://github.com/docker/compose/releases/download/v2.10.2/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
+    chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
+    docker compose version
+  ```
+- Backend Server
+  ```bash
+  cd knowledge_graph_backend
+  docker compose build
+  docker compose up
+  ```
+- Frontend Server
+  ```bash
+  cd knowledge_graph_frontend
+  python -m SimpleHTTPServer
+  ```
